@@ -6,5 +6,7 @@ export class CreateRequestDto {
   type: string;
   @IsString()
   @IsNotEmpty()
-  text: string;
+  request: string;
+  @IsNotEmpty()
+  response: string;
 }

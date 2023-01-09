@@ -6,7 +6,7 @@ import { GateService } from './gate.service';
 export class GateController {
   constructor(private readonly gateService: GateService) {}
   @Post()
-  create(@Body() request: CreateRequestDto) {
-    return this.gateService.create(request);
+  getRequest(@Body() body: { city: string }) {
+    return this.gateService.get(body.city);
   }
 }

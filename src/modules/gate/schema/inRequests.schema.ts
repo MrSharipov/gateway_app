@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 export type In_requests_Document = In_requests & Document;
 
@@ -10,7 +10,9 @@ export class In_requests {
   @Prop({ required: true })
   type: string;
   @Prop({ required: true })
-  text: string;
+  request: string;
+  @Prop({ required: true })
+  response: string;
 }
 
 export const InRequestsSchema = SchemaFactory.createForClass(In_requests);
