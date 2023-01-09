@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type In_requests_Document = In_requests & Document;
+export type Out_requests_Document = Out_requests & Document;
 
 @Schema({
   timestamps: { createdAt: 'created', updatedAt: 'updated' },
 })
-export class In_requests {
+export class Out_requests {
   @Prop({ required: true })
   type: string;
   @Prop({ required: true })
@@ -15,4 +15,4 @@ export class In_requests {
   response: string;
 }
 
-export const InRequestsSchema = SchemaFactory.createForClass(In_requests);
+export const OutRequestsSchema = SchemaFactory.createForClass(Out_requests);

@@ -4,12 +4,18 @@ import { Model } from 'mongoose';
 import { CreateRequestDto } from './dto';
 import { In_requests, In_requests_Document } from './schema/inRequests.schema';
 import axios from 'axios';
+import {
+  Out_requests,
+  Out_requests_Document,
+} from './schema/outRequests.schema';
 
 @Injectable()
 export class GateService {
   constructor(
     @InjectModel(In_requests.name)
-    private readonly requestModel: Model<In_requests_Document>,
+    private readonly inRequestModel: Model<In_requests_Document>,
+    @InjectModel(Out_requests.name)
+    private readonly outRequestModel: Model<Out_requests_Document>,
   ) {}
 
   async get(cityName: string) {
@@ -20,6 +26,7 @@ export class GateService {
       response: JSON.stringify(res.data),
     };
     this.saveInputReqRes(data);
+    return res.data;
   }
 
   async createResponse(cityName) {
@@ -31,15 +38,21 @@ export class GateService {
       request: cityName,
       response: JSON.stringify(res.data),
     };
+    this.saveOutputReqRes(data);
     return res;
   }
 
   async saveInputReqRes(
     inReqRes: CreateRequestDto,
   ): Promise<In_requests_Document> {
-    const request = new this.requestModel(inReqRes);
+    const request = new this.inRequestModel(inReqRes);
     return request.save();
   }
 
-  // async saveOutputReqRes(inReqRes: CreateRequestDto) {}
+  async saveOutputReqRes(
+    OutReqRes: CreateRequestDto,
+  ): Promise<Out_requests_Document> {
+    const request = new this.outRequestModel(OutReqRes);
+    return request.save();
+  }
 }
