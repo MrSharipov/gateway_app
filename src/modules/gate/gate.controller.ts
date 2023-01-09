@@ -1,5 +1,4 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateRequestDto } from './dto/create-request.dto';
 import { GateService } from './gate.service';
 
 @Controller('gate')

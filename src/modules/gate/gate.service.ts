@@ -31,7 +31,7 @@ export class GateService {
 
   async createResponse(cityName) {
     const res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=174ca642f1ca181b047e9a7d8a8e43ba`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}`,
     );
     const data = {
       type: 'out_requests',
