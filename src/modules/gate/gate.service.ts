@@ -10,8 +10,8 @@ export class GateService {
     @InjectModel(In_requests.name)
     private readonly requestModel: Model<In_requests_Document>,
   ) {}
-  async create(createMenuDto: CreateRequestDto): Promise<In_requests_Document> {
-    const request = new this.requestModel(createMenuDto);
+  async create(inRequest: CreateRequestDto): Promise<In_requests_Document> {
+    const request = new this.requestModel(inRequest);
     return request.save();
   }
 }
