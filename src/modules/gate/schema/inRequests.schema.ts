@@ -1,16 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type GateDocument = Gate & Document;
+export type In_requests_Document = In_requests & Document;
 
 @Schema({
   timestamps: { createdAt: 'created', updatedAt: 'updated' },
 })
-export class Gate {
+export class In_requests {
   @Prop({ required: true })
   type: string;
   @Prop({ required: true })
   text: string;
 }
 
-export const GateSchema = SchemaFactory.createForClass(Gate);
+export const InRequestsSchema = SchemaFactory.createForClass(In_requests);

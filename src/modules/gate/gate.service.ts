@@ -2,19 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateRequestDto } from './dto/create-request.dto';
-import { Gate, GateDocument } from './schema/gate.schema';
+import { In_requests, In_requests_Document } from './schema/inRequests.schema';
 
 @Injectable()
 export class GateService {
   constructor(
-    @InjectModel(Gate.name) private readonly requestModel: Model<GateDocument>,
+    @InjectModel(In_requests.name)
+    private readonly requestModel: Model<In_requests_Document>,
   ) {}
-  async create(createMenuDto: CreateRequestDto): Promise<GateDocument> {
+  async create(createMenuDto: CreateRequestDto): Promise<In_requests_Document> {
     const request = new this.requestModel(createMenuDto);
     return request.save();
-  }
-
-  async findAll(): Promise<GateDocument[]> {
-    return this.requestModel.find();
   }
 }

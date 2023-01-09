@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { GateController } from './gate.controller';
 import { GateService } from './gate.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Gate, GateSchema } from './schema/gate.schema';
+import { In_requests, InRequestsSchema } from './schema/inRequests.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       {
-        name: Gate.name,
-        schema: GateSchema,
+        name: In_requests.name,
+        schema: InRequestsSchema,
       },
     ]),
   ],
