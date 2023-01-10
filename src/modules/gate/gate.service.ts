@@ -30,29 +30,49 @@ export class GateService {
   }
 
   async createResponse(cityName) {
-    const res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}`,
-    );
-    const data = {
-      type: 'out_requests',
-      request: cityName,
-      response: JSON.stringify(res.data),
-    };
-    this.saveOutputReqRes(data);
-    return res;
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}`,
+      );
+      const data = {
+        type: 'out_requests',
+        request: cityName,
+        response: JSON.stringify(res.data),
+      };
+      this.saveOutputReqRes(data);
+      return res;
+    } catch (err) {
+      if (err.response.status === 404) {
+        return {
+          data: 'Data is not found',
+        };
+      }
+      console.log('Request error for external api');
+      throw err;
+    }
   }
 
   async saveInputReqRes(
     inReqRes: CreateRequestDto,
   ): Promise<In_requests_Document> {
-    const request = new this.inRequestModel(inReqRes);
-    return request.save();
+    try {
+      const request = new this.inRequestModel(inReqRes);
+      return request.save();
+    } catch (err) {
+      console.log('Error while saving data to the DB');
+      throw err;
+    }
   }
 
   async saveOutputReqRes(
     OutReqRes: CreateRequestDto,
   ): Promise<Out_requests_Document> {
-    const request = new this.outRequestModel(OutReqRes);
-    return request.save();
+    try {
+      const request = new this.outRequestModel(OutReqRes);
+      return request.save();
+    } catch (err) {
+      console.log('Error while saving data to the DB');
+      throw err;
+    }
   }
 }
