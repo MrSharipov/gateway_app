@@ -20,14 +20,14 @@ export class GateService {
     private readonly outRequestModel: Model<Out_requests_Document>,
   ) {}
 
-  async get(request) {
-    if (!isString(request.payload)) {
+  async get(req) {
+    if (!isString(req.payload)) {
       return new RpcException('Payload shoul be one of the city names', -32600);
     }
-    const res = await this.createResponse(request.payload);
+    const res = await this.createResponse(req.payload);
     const data = {
       type: 'in_request',
-      request: 'request rpc',
+      request: JSON.stringify(req),
       response: JSON.stringify(res),
     };
     this.saveInputReqRes(data);
