@@ -22,7 +22,7 @@ export class GateService {
 
   async get(req) {
     if (!isString(req.payload)) {
-      return new RpcException('Payload shoul be one of the city names', -32600);
+      return new RpcException('Params should be string', -32600);
     }
     const res = await this.createResponse(req.payload);
     const data = {
@@ -39,7 +39,6 @@ export class GateService {
       const res = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}`,
       );
-      console.log(res.data);
       const data = {
         type: 'out_requests',
         request: cityName,
@@ -51,8 +50,6 @@ export class GateService {
       if (err.response.status === 404) {
         return new RpcException('Data is not found for this city', -32602);
       }
-      console.log('Request error for external api');
-      throw err;
     }
   }
 
@@ -63,8 +60,7 @@ export class GateService {
       const request = new this.inRequestModel(inReqRes);
       return request.save();
     } catch (err) {
-      console.log('Error while saving data to the DB');
-      throw err;
+      throw new RpcException('Error while saving data to the DB', -32000);
     }
   }
 
@@ -75,8 +71,7 @@ export class GateService {
       const request = new this.outRequestModel(OutReqRes);
       return request.save();
     } catch (err) {
-      console.log('Error while saving data to the DB');
-      throw err;
+      throw new RpcException('Error while saving data to the DB', -32000);
     }
   }
 }
