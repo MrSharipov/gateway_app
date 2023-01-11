@@ -6,7 +6,7 @@ import {
   RpcHandler,
   RpcMethodHandler,
 } from '@jashkasoft/nestjs-json-rpc';
-import { RpcPayloadDto } from './dto/rpc-payload.dto';
+import { RpcPayloadDto } from './dto';
 import { GateService } from './gate.service';
 
 @RpcHandler({
